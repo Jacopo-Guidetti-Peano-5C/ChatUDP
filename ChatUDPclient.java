@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author matteo
+ * @author guidetti
  */
 public class ChatUDPclient {
 
