@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Prof Matteo Palitto 
+ * @author 
  */
 public class SendUserInputToServer implements Runnable {
     DatagramSocket socket;
