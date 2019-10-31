@@ -20,7 +20,7 @@ import chatudpclient.ReceiveFromServerAndPrint;
 
 /**
  *
- * @author Prof Matteo Palitto
+ * @author 
  */
 public class ChatUDPclient {
 
@@ -40,7 +40,7 @@ public class ChatUDPclient {
             socket = new DatagramSocket();
             
 
-            //creo il thread che riceve i messaggi dal server e scrive su schermo i messaggi ricevuti
+            
             Thread receiveAndPrint = new Thread(new ReceiveFromServerAndPrint(socket));
             receiveAndPrint.start();
             System.out.println("sono in ascolto...");
@@ -53,7 +53,7 @@ public class ChatUDPclient {
 
             System.out.println("connessione server riuscita");
 
-            //mi metto in attesa che utente voglia terminare digitando "quit" e quindi chiudo baracca e burattini
+            
             sendUserInput.join(); //mi metto in attesa il thread finisca
             receiveAndPrint.interrupt(); //interrompo anche il receive thread
             receiveAndPrint.join();  //aspetto che anche questo thread finisca
