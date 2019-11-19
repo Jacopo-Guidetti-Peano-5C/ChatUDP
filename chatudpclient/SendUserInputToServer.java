@@ -34,18 +34,20 @@ public class SendUserInputToServer implements Runnable {
     public void run() {
 
         byte[] buffer;
-        String messaggio;
+        String messaggio, username;
         Scanner tastiera = new Scanner(System.in);
         DatagramPacket userDatagram;
 
         try {
+            System.out.prin("Username>");
+            username = tastiera.nextLine();
             System.out.print("> ");
             do {
                 //Leggo da tastiera il messaggio utente vuole inviare
                 messaggio = tastiera.nextLine();
 
                 //Trasformo in array di byte la stringa che voglio inviare
-                buffer = messaggio.getBytes("UTF-8");
+                buffer = String.getBytes(username+messaggio);
 
                 // Costruisco il datagram (pacchetto UDP) di richiesta 
                 // specificando indirizzo e porta del server a cui mi voglio collegare
