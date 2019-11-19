@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package chatudpclient;
 
 import java.io.IOException;
@@ -20,18 +15,19 @@ import chatudpclient.ReceiveFromServerAndPrint;
 
 /**
  *
- * @author 
+ * @author  
  */
 public class ChatUDPclient {
 
     /**
      * @param args the command line arguments
+     * @throws java.net.UnknownHostException
      */
     public static void main(String[] args) throws UnknownHostException {
 
         String IP_address = "127.0.0.1";
         InetAddress address = InetAddress.getByName(IP_address);
-        int UDP_port = 1077;
+        int UDP_port = 1234;
 
 
         DatagramSocket socket;
@@ -40,11 +36,11 @@ public class ChatUDPclient {
             socket = new DatagramSocket();
             
 
-            
+            //creo il thread che riceve i messaggi dal server e scrive su schermo i messaggi ricevuti
             Thread receiveAndPrint = new Thread(new ReceiveFromServerAndPrint(socket));
             receiveAndPrint.start();
             System.out.println("sono in ascolto...");
-
+            System.out.println("");
             //creo il thread che invia il messaggio digitato da utente verso il server
             Thread sendUserInput = new Thread(new SendUserInputToServer(socket, address, UDP_port));
             sendUserInput.start();
@@ -53,7 +49,7 @@ public class ChatUDPclient {
 
             System.out.println("connessione server riuscita");
 
-            
+            //mi metto in attesa che utente voglia terminare digitando "quit" e quindi chiudo baracca e burattini
             sendUserInput.join(); //mi metto in attesa il thread finisca
             receiveAndPrint.interrupt(); //interrompo anche il receive thread
             receiveAndPrint.join();  //aspetto che anche questo thread finisca

@@ -34,28 +34,36 @@ public class SendUserInputToServer implements Runnable {
     public void run() {
 
         byte[] buffer;
-        String messaggio, username;
+        String messaggio;
+        String nomeUtente;
         Scanner tastiera = new Scanner(System.in);
         DatagramPacket userDatagram;
+        String messaggioFinale ;
 
         try {
-            System.out.prin("Username>");
-            username = tastiera.nextLine();
-            System.out.print("> ");
+            System.out.println("Inserisci uno username : ");
+            nomeUtente = tastiera.nextLine();
+            
+            
             do {
                 //Leggo da tastiera il messaggio utente vuole inviare
+                System.out.println("Inserisci il messaggio : ");
                 messaggio = tastiera.nextLine();
-
+                messaggioFinale="username: "+nomeUtente+" messaggio: "+messaggio;
                 //Trasformo in array di byte la stringa che voglio inviare
-                buffer = String.getBytes(username+messaggio);
+                buffer =messaggioFinale.getBytes();
 
                 // Costruisco il datagram (pacchetto UDP) di richiesta 
                 // specificando indirizzo e porta del server a cui mi voglio collegare
                 // e il messaggio da inviare che a questo punto si trova nel buffer
+                
                 userDatagram = new DatagramPacket(buffer, buffer.length, address, UDP_port);
                 // spedisco il datagram
+                
+                System.out.println("la ports è : "+UDP_port);
+                
                 socket.send(userDatagram);
-            } while (messaggio.compareTo("quit") != 0); //se utente digita quit il tread termina
+            } while (messaggioFinale.compareTo("quit") != 0); //se utente digita quit il tread termina
         } catch (IOException ex) {
             Logger.getLogger(ChatUDPclient.class.getName()).log(Level.SEVERE, null, ex);
         }
